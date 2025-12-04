@@ -4,6 +4,8 @@ import os
 DATA_PATH = "data/gastos.json"
 
 def loadData():
+    os.makedirs("data", exist_ok=True)
+    
     if not os.path.exists(DATA_PATH):
         return {"gastos": [], "categorias": []}
 
@@ -11,8 +13,10 @@ def loadData():
         return json.load(f)
 
 def saveData(data):
+    os.makedirs("data", exist_ok=True)
+    
     with open(DATA_PATH, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=4)
+        json.dump(data, f, indent=4, ensure_ascii=False)
 
 def nextId(data):
     if not data["gastos"]:
