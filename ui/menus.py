@@ -1,4 +1,4 @@
-from ui.prompts import inputSeguro
+from ui.prompts import inputSeguro, confirmarAccion
 from utils.screenControllers import limpiarPantalla, pausarPantalla
 from core.gastoManager import registrarGasto
 from ui.listado import listarGastosMenu
@@ -33,10 +33,9 @@ Seleccione una opción:
         elif opcion == "4":
             generarReporteMenu()
         elif opcion == "5":
-            salir = inputSeguro("¿Desea salir del programa? (S/N): ")
-            if salir and salir.upper() == "S":
-                print("\n Gracias por usar el Simulador de Gasto Diario.")
+            if confirmarAccion("¿Desea salir del programa? (S/N): "):
+                print("\nGracias por usar el Simulador de Gasto Diario.")
                 break
         else:
-            print(" Opción inválida.")
+            print("Opción inválida.")
             pausarPantalla()

@@ -1,13 +1,12 @@
-from ui.prompts import inputSeguro
+from ui.prompts import inputSeguro, confirmarAccion
 from utils.screenControllers import limpiarPantalla, pausarPantalla
 from core.storage import loadData
-from core.reportes import ( generarReporteDiario,  generarReporteSemanal,  generarReporteMensual)
+from core.reportes import (generarReporteDiario, generarReporteSemanal, generarReporteMensual)
 from tabulate import tabulate
 import json
 from datetime import datetime
 
 def generarReporteMenu():
-    """Menú principal para generar reportes."""
     data = loadData()
     gastos = data["gastos"]
 
@@ -56,9 +55,8 @@ def mostrarReporte(reporte):
     mostrarResumenCategoriasReporte(reporte)
     mostrarTotalReporte(reporte)
     
-    # Preguntar si desea guardar el reporte
-    guardar = inputSeguro("\n¿Desea guardar este reporte en un archivo JSON? (S/N): ")
-    if guardar and guardar.upper() == "S":
+    # Usar la nueva función confirmarAccion
+    if confirmarAccion("\n¿Desea guardar este reporte en un archivo JSON? (S/N): "):
         guardarReporte(reporte)
     
     pausarPantalla()
@@ -75,7 +73,7 @@ def mostrarGastosReporte(reporte):
     print("\n--- Gastos Registrados ---")
     
     if not reporte["gastos"]:
-        print("⚠ No hay gastos registrados en este período.")
+        print(" No hay gastos registrados en este período.")
     else:
         tabla = [
             [g["id"], g["fecha"], g["categoria"].capitalize(), 
@@ -98,7 +96,7 @@ def mostrarResumenCategoriasReporte(reporte):
                       tablefmt="grid"))
 
 def mostrarTotalReporte(reporte):
-    print(f"\n TOTAL {reporte['periodo'].upper()}: ${reporte['total']:.2f}")
+    print(f"\n✓ TOTAL {reporte['periodo'].upper()}: ${reporte['total']:.2f}")
 
 def guardarReporte(reporte):
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")

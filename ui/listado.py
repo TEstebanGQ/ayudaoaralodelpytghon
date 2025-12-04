@@ -6,7 +6,6 @@ from utils.validators import validarFecha
 from tabulate import tabulate
 
 def listarGastosMenu():
-    """Menú principal para listar gastos con diferentes filtros."""
     data = loadData()
     gastos = data["gastos"]
 
@@ -76,7 +75,7 @@ def filtrarPorFechasUI(gastos):
         lista = filtrarRangoFechas(gastos, inicio, fin)
         mostrarTabla(lista)
     else:
-        print("⚠ Fechas inválidas.")
+        print("Fechas inválidas.")
         pausarPantalla()
 
 def mostrarTabla(lista):

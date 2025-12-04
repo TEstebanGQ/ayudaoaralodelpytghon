@@ -1,4 +1,4 @@
-from ui.prompts import inputSeguro
+from ui.prompts import inputSeguro, confirmarAccion
 from utils.validators import validarFecha, validarCantidad
 from utils.screenControllers import pausarPantalla, limpiarPantalla
 from core.storage import *
@@ -39,7 +39,7 @@ def seleccionarCategoria(data):
                             print(f" Nueva categoría '{nuevaCat}' creada.")
                         return nuevaCat
                     else:
-                        print("El nombre de la categoría no puede estar vacío.")
+                        print(" El nombre de la categoría no puede estar vacío.")
                         return None
                 else:
                     print(" Opción inválida. Intente de nuevo.")
@@ -85,8 +85,8 @@ def registrarGasto():
     if descripcion is None:
         descripcion = ""
 
-    confirmar = inputSeguro("¿Guardar gasto? (S/N): ")
-    if not confirmar or confirmar.upper() != "S":
+    # Usar la nueva función confirmarAccion
+    if not confirmarAccion("¿Guardar gasto? (S/N): "):
         print(" Operación cancelada.")
         return pausarPantalla()
 
@@ -103,5 +103,5 @@ def registrarGasto():
     data["gastos"].append(gasto)
     saveData(data)
 
-    print("Gasto registrado correctamente.")
+    print(" Gasto registrado correctamente.")
     pausarPantalla()
